@@ -1,0 +1,172 @@
+\# Product Requirements Document (PRD)
+
+
+
+\## Project TitleaHotel Management System (Frontend)
+
+
+
+\## Overview
+
+This document outlines the requirements for the frontend implementation of a Hotel Management System, structured following OOAD principles, utilizing Java technologies, and adhering to MVC architectural patterns.
+
+
+
+\## Objectives
+
+\- Develop a user-friendly and responsive frontend for handling hotel operations.
+
+\- Integrate with Java backend, employing MVC architecture.
+
+\- Apply at least 4 design patterns and 4 design principles.
+
+
+
+\## Actors & Use Cases
+
+
+
+\### 1. Guest
+
+\#### Major Use Cases:
+
+\- Search Available Rooms
+
+\- Book Room
+
+\#### Minor Use Cases:
+
+\- View/Modify Booking
+
+\- Report Maintenance Issue
+
+
+
+\### 2. Receptionist
+
+\#### Major Use Cases:
+
+\- Check-in Guest
+
+\- Check-out Guest (includes finalizing payment)
+
+\#### Minor Use Cases:
+
+\- Modify Booking
+
+\- View Maintenance Requests
+
+
+
+\### 3. Maintenance Staff
+
+\#### Major Use Cases:
+
+\- View Maintenance Requests
+
+\#### Minor Use Cases:
+
+\- Update Maintenance Status
+
+
+
+\### 4. Manager
+
+\#### Major Use Cases:
+
+\- Manage Room Inventory
+
+\- Generate Reports
+
+\#### Minor Use Cases:
+
+\- Manage Staff Accounts
+
+
+
+\## Technology Stack
+
+\- Java (Backend)
+
+\- Java Spring MVC Framework
+
+\- Frontend: JavaFX or Web-based (HTML/CSS/JavaScript)
+
+\- Database: MySQL/PostgreSQL
+
+
+
+\## UI/UX Guidelines
+
+\- Intuitive navigation with clear labeling
+
+\- Consistent visual and interaction design across all modules
+
+\- Responsive layout for desktop environments
+
+\- Accessible forms with validation and error messages
+
+
+
+\## Architecture
+
+\### MVC Framework
+
+\- \*\*Model:\*\* Java Spring entities and Hibernate ORM
+
+\- \*\*View:\*\* JavaFX or Web-based templates (HTML/CSS/JavaScript)
+
+\- \*\*Controller:\*\* Spring Controllers to manage interactions between Model and View
+
+
+
+\## Mandatory Design Patterns (At Least 4)
+
+1\. \*\*Singleton Pattern:\*\* Ensuring single instance for database connections
+
+2\. \*\*Factory Pattern:\*\* Managing creation of room/bookings objects
+
+3\. \*\*Observer Pattern:\*\* Updating maintenance requests notifications
+
+4\. \*\*Strategy Pattern:\*\* Implementing flexible payment processing options
+
+
+
+\## Mandatory Design Principles (At Least 4)
+
+1\. \*\*Single Responsibility Principle:\*\* Each class manages a single functionality clearly
+
+2\. \*\*Open/Closed Principle:\*\* Easily extend functionalities without modifying existing code
+
+3\. \*\*Liskov Substitution Principle:\*\* Ensuring subtype classes are substitutable for base classes
+
+4\. \*\*Dependency Inversion Principle:\*\* High-level modules are independent of low-level module implementations
+
+
+
+\## Deliverables
+
+\- UML Diagrams (Use Case, Class Diagrams)
+
+\- Frontend Implementation integrated with Backend
+
+\- Comprehensive code repository (public GitHub)
+
+\- Project presentation and demo (individual contributions clearly defined)
+
+\- Detailed project report
+
+
+
+\## Evaluation Criteria
+
+\- Analysis and Design Models (3 marks)
+
+\- MVC Architecture Implementation (1 mark)
+
+\- Usage of Design Principles and Patterns (4 marks)
+
+\- Presentation, Demo, and Code Explanation (2 marks)
+
+
+

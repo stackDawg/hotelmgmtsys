@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Hotel Management</h4>
+                    </div>
+                    <hr class="text-light">
+                    <div id="user-info" class="text-center text-white mb-4">
+                        <!-- User info will be injected here -->
+                    </div>
+                    <div id="nav-menu">
+                        <!-- Navigation will be injected here based on user role -->
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 id="page-title">Hotel Management System</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button id="logout-btn" class="btn btn-sm btn-outline-secondary d-none">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Auth Section -->
+                <div id="auth-section" class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="auth-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-pane" type="button" role="tab" aria-controls="login-pane" aria-selected="true">Login</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane" type="button" role="tab" aria-controls="register-pane" aria-selected="false">Register</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content" id="auth-tabs-content">
+                                        <!-- Login Tab -->
+                                        <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab">
+                                            <h5 class="card-title">Login</h5>
+                                            <form id="login-form">
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" class="form-control" id="username" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password" class="form-label">Password</label>
+                                                    <input type="password" class="form-control" id="password" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="role" class="form-label">Role</label>
+                                                    <select class="form-select" id="role" required>
+                                                        <option value="">Select Role</option>
+                                                        <option value="guest">Guest</option>
+                                                        <option value="receptionist">Receptionist</option>
+                                                        <option value="maintenance">Maintenance Staff</option>
+                                                        <option value="manager">Manager</option>
+                                                    </select>
+                                                </div>
+                                                <div id="login-error" class="alert alert-danger d-none" role="alert"></div>
+                                                <button type="submit" class="btn btn-primary">Login</button>
+                                                <button type="button" id="guest-access-btn" class="btn btn-secondary">Continue as Guest</button>
+                                            </form>
+                                        </div>
+                                        <!-- Register Tab -->
+                                        <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab">
+                                            <h5 class="card-title">Register New User</h5>
+                                            <form id="register-form">
+                                                <div class="mb-3">
+                                                    <label for="reg-username" class="form-label">Username</label>
+                                                    <input type="text" class="form-control" id="reg-username" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-password" class="form-label">Password</label>
+                                                    <input type="password" class="form-control" id="reg-password" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-confirm-password" class="form-label">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="reg-confirm-password" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-name" class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" id="reg-name" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-email" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="reg-email" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-phone" class="form-label">Phone</label>
+                                                    <input type="tel" class="form-control" id="reg-phone">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="reg-role" class="form-label">Role</label>
+                                                    <select class="form-select" id="reg-role" required>
+                                                        <option value="guest">Guest</option>
+                                                        <option value="receptionist">Receptionist</option>
+                                                        <option value="maintenance">Maintenance Staff</option>
+                                                        <option value="manager">Manager</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3" id="reg-department-container" style="display: none;">
+                                                    <label for="reg-department" class="form-label">Department</label>
+                                                    <input type="text" class="form-control" id="reg-department">
+                                                </div>
+                                                <div id="register-error" class="alert alert-danger d-none" role="alert"></div>
+                                                <div id="register-success" class="alert alert-success d-none" role="alert"></div>
+                                                <button type="submit" class="btn btn-primary">Register</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Section - Dynamically populated based on user role -->
+                <div id="content-section" class="d-none">
+                    <!-- Guest View -->
+                    <div id="guest-view" class="d-none">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Search Available Rooms</h5>
+                                        <form id="room-search-form" class="row g-3">
+                                            <div class="col-md-3">
+                                                <label for="check-in-date" class="form-label">Check-in Date</label>
+                                                <input type="date" class="form-control" id="check-in-date" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="check-out-date" class="form-label">Check-out Date</label>
+                                                <input type="date" class="form-control" id="check-out-date" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="guests" class="form-label">Guests</label>
+                                                <input type="number" class="form-control" id="guests" min="1" value="1" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="room-type" class="form-label">Room Type</label>
+                                                <select class="form-select" id="room-type">
+                                                    <option value="">Any</option>
+                                                    <option value="standard">Standard</option>
+                                                    <option value="deluxe">Deluxe</option>
+                                                    <option value="suite">Suite</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-end">
+                                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="available-rooms-container" class="row row-cols-1 row-cols-md-3 g-4"></div>
+                        
+                        <div id="booking-details-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Booking Details</h5>
+                                            <div id="booking-details"></div>
+                                            <div class="mt-3">
+                                                <button id="back-to-rooms-btn" class="btn btn-secondary">Back to Rooms</button>
+                                                <button id="confirm-booking-btn" class="btn btn-success">Confirm Booking</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="my-bookings-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">My Bookings</h5>
+                                            <div id="guest-bookings-list"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="maintenance-request-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Report Maintenance Issue</h5>
+                                            <form id="maintenance-request-form">
+                                                <div class="mb-3">
+                                                    <label for="booking-id" class="form-label">Select Booking</label>
+                                                    <select class="form-select" id="booking-id" required>
+                                                        <!-- Options will be populated dynamically -->
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="issue-type" class="form-label">Issue Type</label>
+                                                    <select class="form-select" id="issue-type" required>
+                                                        <option value="">Select Type</option>
+                                                        <option value="plumbing">Plumbing</option>
+                                                        <option value="electrical">Electrical</option>
+                                                        <option value="furniture">Furniture</option>
+                                                        <option value="hvac">HVAC</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="issue-description" class="form-label">Description</label>
+                                                    <textarea class="form-control" id="issue-description" rows="3" required></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="issue-priority" class="form-label">Priority</label>
+                                                    <select class="form-select" id="issue-priority" required>
+                                                        <option value="low">Low</option>
+                                                        <option value="medium" selected>Medium</option>
+                                                        <option value="high">High</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit Request</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Receptionist View -->
+                    <div id="receptionist-view" class="d-none">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Quick Actions</h5>
+                                        <div class="d-flex gap-2">
+                                            <button id="check-in-btn" class="btn btn-primary">Check-in Guest</button>
+                                            <button id="check-out-btn" class="btn btn-success">Check-out Guest</button>
+                                            <button id="manage-bookings-btn" class="btn btn-info">Manage Bookings</button>
+                                            <button id="view-maintenance-btn" class="btn btn-warning">View Maintenance</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="check-in-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Check-in Guest</h5>
+                                            <form id="check-in-form" class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="check-in-booking-id" class="form-label">Booking Reference</label>
+                                                    <input type="text" class="form-control" id="check-in-booking-id" placeholder="Enter booking ID" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="guest-name" class="form-label">Guest Name</label>
+                                                    <input type="text" class="form-control" id="guest-name" placeholder="Enter guest name">
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Find Booking</button>
+                                                </div>
+                                            </form>
+                                            <div id="check-in-details" class="mt-4 d-none">
+                                                <!-- Check-in details will be populated here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="check-out-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Check-out Guest</h5>
+                                            <form id="check-out-form" class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="check-out-booking-id" class="form-label">Booking Reference</label>
+                                                    <input type="text" class="form-control" id="check-out-booking-id" placeholder="Enter booking ID" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="check-out-room-number" class="form-label">Room Number</label>
+                                                    <input type="text" class="form-control" id="check-out-room-number" placeholder="Enter room number">
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Find Booking</button>
+                                                </div>
+                                            </form>
+                                            <div id="check-out-details" class="mt-4 d-none">
+                                                <!-- Check-out details will be populated here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="manage-bookings-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Manage Bookings</h5>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="search-booking" placeholder="Search by booking ID, name, or room">
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Booking ID</th>
+                                                            <th>Guest Name</th>
+                                                            <th>Room</th>
+                                                            <th>Check-in</th>
+                                                            <th>Check-out</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bookings-table-body">
+                                                        <!-- Bookings will be populated here -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="receptionist-maintenance-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Maintenance Requests</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Request ID</th>
+                                                            <th>Room</th>
+                                                            <th>Issue Type</th>
+                                                            <th>Description</th>
+                                                            <th>Status</th>
+                                                            <th>Priority</th>
+                                                            <th>Reported On</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="receptionist-maintenance-table-body">
+                                                        <!-- Maintenance requests will be populated here -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Maintenance Staff View -->
+                    <div id="maintenance-staff-view" class="d-none">
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Open Requests</h5>
+                                        <h2 id="open-requests-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">In Progress</h5>
+                                        <h2 id="in-progress-requests-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Completed Today</h5>
+                                        <h2 id="completed-requests-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Maintenance Requests</h5>
+                                        <div class="mb-3">
+                                            <label for="maintenance-filter" class="form-label">Filter by Status</label>
+                                            <select class="form-select" id="maintenance-filter">
+                                                <option value="all">All Requests</option>
+                                                <option value="open">Open</option>
+                                                <option value="in-progress">In Progress</option>
+                                                <option value="completed">Completed</option>
+                                            </select>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Request ID</th>
+                                                        <th>Room</th>
+                                                        <th>Issue Type</th>
+                                                        <th>Description</th>
+                                                        <th>Priority</th>
+                                                        <th>Reported On</th>
+                                                        <th>Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="maintenance-table-body">
+                                                    <!-- Maintenance requests will be populated here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="maintenance-detail-modal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Maintenance Request Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="maintenance-detail-content"></div>
+                                        <form id="update-maintenance-form" class="mt-3">
+                                            <input type="hidden" id="maintenance-id">
+                                            <div class="mb-3">
+                                                <label for="maintenance-status" class="form-label">Update Status</label>
+                                                <select class="form-select" id="maintenance-status" required>
+                                                    <option value="open">Open</option>
+                                                    <option value="in-progress">In Progress</option>
+                                                    <option value="completed">Completed</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="maintenance-notes" class="form-label">Notes</label>
+                                                <textarea class="form-control" id="maintenance-notes" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" id="update-maintenance-btn" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Manager View -->
+                    <div id="manager-view" class="d-none">
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Rooms</h5>
+                                        <h2 id="total-rooms-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Occupied Rooms</h5>
+                                        <h2 id="occupied-rooms-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Today's Check-ins</h5>
+                                        <h2 id="todays-checkins-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Today's Check-outs</h5>
+                                        <h2 id="todays-checkouts-count">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Occupancy Rate</h5>
+                                        <canvas id="occupancy-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Room Type Distribution</h5>
+                                        <canvas id="room-type-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Room Inventory</h5>
+                                        <div class="mb-3">
+                                            <button id="add-room-btn" class="btn btn-primary">Add New Room</button>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Room Number</th>
+                                                        <th>Type</th>
+                                                        <th>Capacity</th>
+                                                        <th>Price per Night</th>
+                                                        <th>Status</th>
+                                                        <th>Last Cleaned</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="room-inventory-table-body">
+                                                    <!-- Room inventory will be populated here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="staff-accounts-container" class="d-none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Staff Accounts</h5>
+                                            <div class="mb-3">
+                                                <button id="add-staff-btn" class="btn btn-primary">Add New Staff</button>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Staff ID</th>
+                                                            <th>Name</th>
+                                                            <th>Role</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="staff-accounts-table-body">
+                                                        <!-- Staff accounts will be populated here -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="add-room-modal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add New Room</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="add-room-form">
+                                            <div class="mb-3">
+                                                <label for="room-number" class="form-label">Room Number</label>
+                                                <input type="text" class="form-control" id="room-number" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="room-type-select" class="form-label">Room Type</label>
+                                                <select class="form-select" id="room-type-select" required>
+                                                    <option value="standard">Standard</option>
+                                                    <option value="deluxe">Deluxe</option>
+                                                    <option value="suite">Suite</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="room-capacity" class="form-label">Capacity</label>
+                                                <input type="number" class="form-control" id="room-capacity" min="1" value="2" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="room-price" class="form-label">Price per Night</label>
+                                                <input type="number" class="form-control" id="room-price" min="0" step="0.01" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" id="save-room-btn" class="btn btn-primary">Save Room</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="add-staff-modal" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add New Staff</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="add-staff-form">
+                                            <div class="mb-3">
+                                                <label for="staff-name" class="form-label">Full Name</label>
+                                                <input type="text" class="form-control" id="staff-name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="staff-role" class="form-label">Role</label>
+                                                <select class="form-select" id="staff-role" required>
+                                                    <option value="receptionist">Receptionist</option>
+                                                    <option value="maintenance">Maintenance Staff</option>
+                                                    <option value="manager">Manager</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="staff-email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="staff-email" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="staff-phone" class="form-label">Phone</label>
+                                                <input type="tel" class="form-control" id="staff-phone" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="staff-username" class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="staff-username" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="staff-password" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="staff-password" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" id="save-staff-btn" class="btn btn-primary">Save Staff</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Design Patterns -->
+    <script src="js/patterns/Singleton.js"></script>
+    <script src="js/patterns/Factory.js"></script>
+    <script src="js/patterns/Observer.js"></script>
+    <script src="js/patterns/Strategy.js"></script>
+    
+    <!-- Models -->
+    <script src="js/models/User.js"></script>
+    <script src="js/models/Room.js"></script>
+    <script src="js/models/Booking.js"></script>
+    <script src="js/models/MaintenanceRequest.js"></script>
+    
+    <!-- Services -->
+    <script src="js/services/DatabaseService.js"></script>
+    <script src="js/services/PaymentService.js"></script>
+    
+    <!-- Views -->
+    <script src="js/views/AuthView.js"></script>
+    <script src="js/views/GuestView.js"></script>
+    <script src="js/views/ReceptionistView.js"></script>
+    <script src="js/views/MaintenanceView.js"></script>
+    <script src="js/views/ManagerView.js"></script>
+    
+    <!-- Controllers -->
+    <script src="js/controllers/AuthController.js"></script>
+    <script src="js/controllers/RoomController.js"></script>
+    <script src="js/controllers/BookingController.js"></script>
+    <script src="js/controllers/MaintenanceController.js"></script>
+    <script src="js/controllers/ReportController.js"></script>
+    
+    <!-- Main App -->
+    <script src="js/app.js"></script>
+</body>
+</html>
